@@ -22,10 +22,8 @@ class MailManager implements MailManagerInterface
 
     public function sendMessage(Email $message): void
     {
-        if ($message instanceof MailMessage) {
-            $message->send();
-        } else {
-            $this->mailer->send($message);
-        }
+        // v14 removed MailMessage::send() (Breaking #108097); use the injected Mailer
+        // for all message types. Works the same in v12/v13.
+        $this->mailer->send($message);
     }
 }
